@@ -15,28 +15,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { motion } from "motion/react";
+import type { Config, SubConfigItem } from "@/App";
 
-type Config = {
-  name: string;
-  tubeTypes: string;
-  type: string;
-  productSource: string;
-  description: string;
-  isAutoReplenish: boolean;
-};
-
-// type SubConfig = {
-//   configName: string;
-//   vendor: string;
-//   type: string;
-//   prePrint: boolean;
-//   pkunit: string;
-//   pkunitqty: string;
-// };
-
-const ProductConfig = () => {
+const ProductConfig: React.FC<{
+  setSubConfigs: React.Dispatch<React.SetStateAction<SubConfigItem[]>>;
+  config: any;
+  setConfig: React.Dispatch<React.SetStateAction<Config[]>>;
+}> = ({ setSubConfigs, config, setConfig }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [config, setConfig] = useState<Config[]>([]);
   const [openSubConfig, setOpenIsSubConfig] = useState(false);
   const [currentProduct, setCurrentProduct] = useState("");
 
@@ -91,6 +77,48 @@ const ProductConfig = () => {
     });
   };
 
+  const saveSubConfig = (parentName: string) => {
+    if (!formRef.current) return;
+
+    // @ts-ignore
+    const formElements = formRef.current.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >("input, textarea");
+
+    const newSubConfig: SubConfigItem = {
+      parentName: "",
+      configName: "",
+      vendor: "",
+      type: "",
+      prePrint: false,
+      pkunit: "",
+      pkunitqty: "",
+    };
+
+    newSubConfig.parentName = parentName;
+    // @ts-ignore
+    formElements.forEach((el) => {
+      if (el.id in newSubConfig) {
+        if (el.type === "checkbox") {
+          // @ts-ignore
+          newSubConfig[el.id as keyof SubConfigItem] = (
+            el as HTMLInputElement
+          ).checked;
+        } else {
+          // @ts-ignore
+          newSubConfig[el.id as keyof SubConfigItem] = el.value;
+        }
+      }
+    });
+
+    // Add the new sub config to the state
+    setSubConfigs((prev) => [...prev, newSubConfig]);
+    setOpenIsSubConfig(false);
+
+    toast.success("Sub-config created", {
+      description: `Successfully created ${newSubConfig.configName}`,
+    });
+  };
   return (
     <motion.div
       animate={{ opacity: 1 }}
@@ -176,7 +204,7 @@ const ProductConfig = () => {
           </div>
         </div>
         <button
-          onClick={saveProduct}
+          onClick={() => saveSubConfig(currentProduct)}
           className="border-2 p-2 rounded-md float-right font-medium cursor-pointer hover:bg-stone-200 duration-150 ease-in-out"
         >
           Create
@@ -193,11 +221,11 @@ const ProductConfig = () => {
             <TableHead>Product Source</TableHead>
             <TableHead>description</TableHead>
             <TableHead>Auto Replenish</TableHead>
-            <TableHead>View Config</TableHead>
+            <TableHead>Create Config</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {config.map((product) => (
+          {config.map((product: any) => (
             <TableRow key={product.name}>
               <TableCell className="font-medium">{product.name}</TableCell>
               <TableCell>{product.tubeTypes}</TableCell>
