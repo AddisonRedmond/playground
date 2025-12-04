@@ -50,7 +50,7 @@ const ProductConfig = () => {
 
   const saveProduct = () => {
     if (!formRef.current) return;
-
+    // @ts-ignore
     const formElements = formRef.current.querySelectorAll<
       | HTMLInputElement
       | HTMLTextAreaElement
@@ -66,12 +66,14 @@ const ProductConfig = () => {
       description: "",
       isAutoReplenish: false,
     };
-
+    // @ts-ignore
     formElements.forEach((el) => {
       if (el.id in newConfig) {
         if (el.type === "checkbox") {
+          // @ts-ignore
           newConfig[el.id as keyof Config] = (el as HTMLInputElement).checked;
         } else {
+          // @ts-ignore
           newConfig[el.id as keyof Config] = el.value;
         }
       }
@@ -144,14 +146,6 @@ const ProductConfig = () => {
         </button>
       </Modal>
 
-      {/* type SubConfig = {
-  configName: string;
-  vendor: string;
-  type: string;
-  prePrint: boolean;
-  pkunit: string;
-  pkunitqty: string;
-}; */}
       <Modal isOpen={openSubConfig} onClose={() => setOpenIsSubConfig(false)}>
         <div className="p-4">
           <h2 className="text-lg font-bold mb-2">{`Create new for ${currentProduct}`}</h2>

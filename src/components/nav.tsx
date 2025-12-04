@@ -46,6 +46,7 @@ const Nav: React.FC<{
         onClick={() => setUrl("/site-catalog")}
         animate={path === "/site-catalog" || path === "/" ? { x: 0 } : intital}
         whileHover={hover}
+        // @ts-ignore
         transition={transtion}
         id="site-catalog"
         className="cursor-pointer flex justify-around items-center h-12 rounded-r-full font-medium transition-colors ease-in-out duration-150 hover:bg-purple-200"
@@ -68,6 +69,8 @@ const Nav: React.FC<{
         onClick={() => setUrl("/orders")}
         animate={path === "/orders" ? { x: 0 } : intital}
         whileHover={hover}
+        // @ts-ignore
+
         transition={transtion}
         id="orders"
         className="cursor-pointer flex justify-around items-center h-12 rounded-r-full font-medium transition-colors ease-in-out duration-150 hover:bg-purple-200"
@@ -91,6 +94,8 @@ const Nav: React.FC<{
         onClick={() => setUrl("/recurring-supply-orders")}
         animate={path === "/recurring-supply-orders" ? { x: 0 } : intital}
         whileHover={hover}
+        // @ts-ignore
+
         transition={transtion}
         id="recurring-supply-orders"
         className="cursor-pointer flex justify-around items-center h-12 rounded-r-full font-medium transition-colors ease-in-out duration-150 hover:bg-purple-200"
@@ -118,6 +123,8 @@ const Nav: React.FC<{
         onClick={() => setUrl("/kit-details-lookup")}
         animate={path === "/kit-details-lookup" ? { x: 0 } : intital}
         whileHover={hover}
+        // @ts-ignore
+
         transition={transtion}
         id="kit-details-lookup"
         className="cursor-pointer flex justify-around items-center h-12 rounded-r-full font-medium transition-colors ease-in-out duration-150 hover:bg-purple-200"
@@ -141,6 +148,8 @@ const Nav: React.FC<{
         onClick={() => setUrl("/reports")}
         animate={path === "/reports" ? { x: 0 } : intital}
         whileHover={hover}
+        // @ts-ignore
+
         transition={transtion}
         id="reports"
         className="cursor-pointer flex justify-around items-center h-12 rounded-r-full font-medium transition-colors ease-in-out duration-150 hover:bg-purple-200"
