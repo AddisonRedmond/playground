@@ -25,19 +25,18 @@ type Config = {
   isAutoReplenish: boolean;
 };
 
-type SubConfig = {
-  configName: string;
-  vendor: string;
-  type: string;
-  prePrint: boolean;
-  pkunit: string;
-  pkunitqty: string;
-};
+// type SubConfig = {
+//   configName: string;
+//   vendor: string;
+//   type: string;
+//   prePrint: boolean;
+//   pkunit: string;
+//   pkunitqty: string;
+// };
 
 const ProductConfig = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [config, setConfig] = useState<Config[]>([]);
-  const [subConfig, setSubConfig] = useState<SubConfig[]>();
   const [openSubConfig, setOpenIsSubConfig] = useState(false);
   const [currentProduct, setCurrentProduct] = useState("");
 
